@@ -21,7 +21,22 @@ let FilmesController = class FilmesController {
         this.filmesService = filmesService;
     }
     async create(createFilme) {
-        return this.filmesService.createFilme(createFilme);
+        return this.filmesService.create(createFilme);
+    }
+    async findMany() {
+        return this.filmesService.findAll();
+    }
+    async findUnique(id) {
+        return this.filmesService.findOne(id);
+    }
+    async update(updateFilme, id) {
+        return this.filmesService.update(id, updateFilme);
+    }
+    async delete(id) {
+        return this.filmesService.deleteOne({ id: Number(id) });
+    }
+    async deleteMany() {
+        return this.filmesService.deleteAll();
     }
 };
 __decorate([
@@ -32,6 +47,45 @@ __decorate([
     __metadata("design:paramtypes", [create_filme_dto_1.CreateFilmeDto]),
     __metadata("design:returntype", Promise)
 ], FilmesController.prototype, "create", null);
+__decorate([
+    (0, common_1.Get)('/findAll'),
+    (0, common_1.UsePipes)(common_1.ValidationPipe),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], FilmesController.prototype, "findMany", null);
+__decorate([
+    (0, common_1.Get)('/findOne/:id'),
+    (0, common_1.UsePipes)(common_1.ValidationPipe),
+    __param(0, (0, common_1.Param)('id', common_1.ParseIntPipe)),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Number]),
+    __metadata("design:returntype", Promise)
+], FilmesController.prototype, "findUnique", null);
+__decorate([
+    (0, common_1.Put)('/update/:id'),
+    (0, common_1.UsePipes)(common_1.ValidationPipe),
+    __param(0, (0, common_1.Body)()),
+    __param(1, (0, common_1.Param)('id', common_1.ParseIntPipe)),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [create_filme_dto_1.CreateFilmeDto, Number]),
+    __metadata("design:returntype", Promise)
+], FilmesController.prototype, "update", null);
+__decorate([
+    (0, common_1.Delete)('/deleteOne/:id'),
+    (0, common_1.UsePipes)(common_1.ValidationPipe),
+    __param(0, (0, common_1.Param)('id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], FilmesController.prototype, "delete", null);
+__decorate([
+    (0, common_1.Delete)('/deleteAll'),
+    (0, common_1.UsePipes)(common_1.ValidationPipe),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], FilmesController.prototype, "deleteMany", null);
 FilmesController = __decorate([
     (0, common_1.Controller)('filmes'),
     __metadata("design:paramtypes", [filmes_service_1.FilmesService])
