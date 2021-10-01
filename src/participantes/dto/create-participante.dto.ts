@@ -15,4 +15,7 @@ export class CreateParticipanteDto {
 
   @IsNotEmpty()
   isAtor: boolean;
+
+  @IsOptional()
+  filmeId: number;
 }
