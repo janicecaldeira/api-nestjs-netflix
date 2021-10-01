@@ -6,7 +6,7 @@ import { PrismaService } from 'src/prisma/prisma.service';
 export class FilmesService {
   constructor(private prisma: PrismaService) {}
 
-  async createFilme(data: Prisma.FilmeCreateInput): Promise<Filme> {
+  async create(data: Prisma.FilmeCreateInput): Promise<Filme> {
     return this.prisma.filme.create({ data });
   }
 

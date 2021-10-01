@@ -21,7 +21,7 @@ export class FilmesController {
   @Post('/create')
   @UsePipes(ValidationPipe)
   async create(@Body() createFilme: CreateFilmeDto): Promise<Filme> {
-    return this.filmesService.createFilme(createFilme);
+    return this.filmesService.create(createFilme);
   }
 
   @Get('/findAll')
