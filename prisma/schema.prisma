@@ -8,29 +8,29 @@ generator client {
 }
 
 model Filme {
-  id Int @default(autoincrement()) @id
-  nome String
-  imagem String?
+  id              Int            @id @default(autoincrement())
+  nome            String
+  imagem          String?
   data_lancamento DateTime
-  tempo_duracao Int
-  genero Genero[]
-  participantes Participante[]
+  tempo_duracao   Int
+  genero          Genero[]
+  participantes   Participante[]
 }
 
 model Participante {
-  id Int @default(autoincrement()) @id
-  nome String
-  imagem String?
+  id              Int      @id @default(autoincrement())
+  nome            String
+  imagem          String?
   data_nascimento DateTime
-  isStaff Boolean @default(false)
-  isAtor Boolean @default(false)
-  filme Filme? @relation(fields: [filmeId], references: [id])
-  filmeId Int?
+  isStaff         Boolean  @default(false)
+  isAtor          Boolean  @default(false)
+  filme           Filme?   @relation(fields: [filmeId], references: [id])
+  filmeId         Int?
 }
 
 model Genero {
-  id Int @default(autoincrement()) @id
-  nome String
-  filme Filme? @relation(fields: [filmeId], references: [id])
+  id      Int    @id @default(autoincrement())
+  nome    String
+  filme   Filme? @relation(fields: [filmeId], references: [id])
   filmeId Int?
 }
