@@ -4,6 +4,11 @@ import {
   Body,
   UsePipes,
   ValidationPipe,
+  Get,
+  Param,
+  ParseIntPipe,
+  Put,
+  Delete,
 } from '@nestjs/common';
 import { CreateFilmeDto } from './dto/create-filme.dto';
 import { FilmesService } from './filmes.service';
@@ -19,18 +24,36 @@ export class FilmesController {
     return this.filmesService.createFilme(createFilme);
   }
 
-  // @Get('/findAll')
-  // @UsePipes(ValidationPipe)
+  @Get('/findAll')
+  @UsePipes(ValidationPipe)
+  async findMany(): Promise<Filme[]> {
+    return this.filmesService.findAll();
+  }
 
-  // @Get('/findOne/:id')
-  // @UsePipes(ValidationPipe)
+  @Get('/findOne/:id')
+  @UsePipes(ValidationPipe)
+  async findUnique(@Param('id', ParseIntPipe) id: number) {
+    return this.filmesService.findOne(id);
+  }
 
-  // @Put('/update/:id')
-  // @UsePipes(ValidationPipe)
+  @Put('/update/:id')
+  @UsePipes(ValidationPipe)
+  async update(
+    @Body() updateFilme: CreateFilmeDto,
+    @Param('id', ParseIntPipe) id: number,
+  ): Promise<Filme> {
+    return this.filmesService.update(id, updateFilme);
+  }
 
-  // @Delete('/deleteOne/:id')
-  // @UsePipes(ValidationPipe)
+  @Delete('/deleteOne/:id')
+  @UsePipes(ValidationPipe)
+  async delete(@Param('id') id: string) {
+    return this.filmesService.deleteOne({ id: Number(id) });
+  }
 
-  // @Delete('/deleteAll')
-  // @UsePipes(ValidationPipe)
+  @Delete('/deleteAll')
+  @UsePipes(ValidationPipe)
+  async deleteMany() {
+    return this.filmesService.deleteAll();
+  }
 }
