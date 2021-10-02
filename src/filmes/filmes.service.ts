@@ -6,9 +6,22 @@ import { PrismaService } from 'src/prisma/prisma.service';
 export class FilmesService {
   constructor(private prisma: PrismaService) {}
 
-  async create(data: Prisma.FilmeCreateInput): Promise<Filme> {
-    return this.prisma.filme.create({ data });
-  }
+  // async create(data: {
+  //   nome:;
+  //   imagem:;
+  //   data_lancamento:;
+  //   tempo_duracao:;
+  //   genero: {
+  //     connect: {
+
+  //     };
+  //   participante: {
+  //     connect: {
+  //     };
+  //   };
+  // }): Promise<Filme> {
+  //   return this.prisma.filme.create({ data });
+  // }
 
   async findAll(): Promise<Filme[]> {
     return this.prisma.filme.findMany();

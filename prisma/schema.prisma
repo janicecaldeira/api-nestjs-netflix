@@ -14,7 +14,9 @@ model Filme {
   data_lancamento DateTime
   tempo_duracao   Int
   genero          Genero[]
-  participantes   Participante[]
+  participante    Participante[]
+
+  @@map("filme")
 }
 
 model Participante {
@@ -25,12 +27,16 @@ model Participante {
   isStaff         Boolean  @default(false)
   isAtor          Boolean  @default(false)
   filme           Filme?   @relation(fields: [filmeId], references: [id])
-  filmeId         Int?
+  filmeId         Int?     @map("filme_id")
+
+  @@map("participante")
 }
 
 model Genero {
   id      Int    @id @default(autoincrement())
   nome    String
   filme   Filme? @relation(fields: [filmeId], references: [id])
-  filmeId Int?
+  filmeId Int?   @map("filme_id")
+
+  @@map("genero")
 }
