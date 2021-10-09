@@ -17,11 +17,11 @@ export class FilmesService {
     return this.prisma.filme.create({
       data: {
         ...data,
-        participantes: {
-          connect: participantes,
-        },
         generos: {
           connect: generos,
+        },
+        participantes: {
+          connect: participantes,
         },
       },
       include: {
@@ -35,10 +35,10 @@ export class FilmesService {
     return this.prisma.filme.findMany();
   }
 
-  async findOne(filmeId: number): Promise<Filme> {
+  async findOne(id: number): Promise<Filme> {
     return this.prisma.filme.findUnique({
       where: {
-        id: filmeId,
+        id: id,
       },
       include: {
         generos: true,
@@ -57,11 +57,11 @@ export class FilmesService {
     return await this.prisma.filme.update({
       data: {
         ...data,
-        participantes: {
-          connect: participantes,
-        },
         generos: {
           connect: generos,
+        },
+        participantes: {
+          connect: participantes,
         },
       },
       include: {
