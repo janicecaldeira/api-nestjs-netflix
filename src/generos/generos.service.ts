@@ -1,13 +1,25 @@
 import { Injectable } from '@nestjs/common';
 import { Genero, Prisma } from '.prisma/client';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { CreateGeneroDto } from './dto/create-genero.dto';
 
 @Injectable()
 export class GenerosService {
   constructor(private prisma: PrismaService) {}
 
-  async create(data: Prisma.GeneroCreateInput): Promise<Genero> {
-    return this.prisma.genero.create({ data });
+  async create(data: CreateGeneroDto) {
+    const filmes = data.filmes?.map((filme) => ({
+      id: filme,
+    }));
+
+    return this.prisma.genero.create({
+      data: {
+        ...data,
+        filmes: {
+          connect: filmes,
+        },
+      },
+    });
   }
 
   async findAll(): Promise<Genero[]> {
@@ -19,18 +31,24 @@ export class GenerosService {
       where: {
         id: generoId,
       },
+      include: {
+        filmes: true,
+      },
     });
   }
 
-  async update(
-    generoId: number,
-    data: Prisma.GeneroCreateInput,
-  ): Promise<Genero> {
-    return this.prisma.genero.update({
-      data,
-      where: {
-        id: generoId,
+  async update(id: number, data: CreateGeneroDto) {
+    const filmes = data.filmes?.map((filme) => ({
+      id: filme,
+    }));
+    return await this.prisma.genero.update({
+      data: {
+        ...data,
+        filmes: {
+          connect: filmes,
+        },
       },
+      where: { id },
     });
   }
 

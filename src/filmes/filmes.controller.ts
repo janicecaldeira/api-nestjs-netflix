@@ -32,15 +32,15 @@ export class FilmesController {
 
   @Get('/findOne/:id')
   @UsePipes(ValidationPipe)
-  async findUnique(@Param('id', ParseIntPipe) id: number) {
+  async findUnique(@Param('id', ParseIntPipe) id: number): Promise<Filme> {
     return this.filmesService.findOne(id);
   }
 
   @Put('/update/:id')
   @UsePipes(ValidationPipe)
   async update(
-    @Body() updateFilme: CreateFilmeDto,
     @Param('id', ParseIntPipe) id: number,
+    @Body() updateFilme: CreateFilmeDto,
   ): Promise<Filme> {
     return this.filmesService.update(id, updateFilme);
   }

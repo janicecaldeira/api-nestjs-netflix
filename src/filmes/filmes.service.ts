@@ -1,27 +1,35 @@
 import { Injectable } from '@nestjs/common';
 import { Filme, Prisma } from '.prisma/client';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { CreateFilmeDto } from './dto/create-filme.dto';
 
 @Injectable()
 export class FilmesService {
   constructor(private prisma: PrismaService) {}
 
-  // async create(data: {
-  //   nome:;
-  //   imagem:;
-  //   data_lancamento:;
-  //   tempo_duracao:;
-  //   genero: {
-  //     connect: {
-
-  //     };
-  //   participante: {
-  //     connect: {
-  //     };
-  //   };
-  // }): Promise<Filme> {
-  //   return this.prisma.filme.create({ data });
-  // }
+  async create(data: CreateFilmeDto) {
+    const generos = data.generos?.map((genero) => ({
+      id: genero,
+    }));
+    const participantes = data.participantes?.map((participante) => ({
+      id: participante,
+    }));
+    return this.prisma.filme.create({
+      data: {
+        ...data,
+        participantes: {
+          connect: participantes,
+        },
+        generos: {
+          connect: generos,
+        },
+      },
+      include: {
+        generos: true,
+        participantes: true,
+      },
+    });
+  }
 
   async findAll(): Promise<Filme[]> {
     return this.prisma.filme.findMany();
@@ -32,15 +40,35 @@ export class FilmesService {
       where: {
         id: filmeId,
       },
+      include: {
+        generos: true,
+        participantes: true,
+      },
     });
   }
 
-  async update(filmeId: number, data: Prisma.FilmeCreateInput): Promise<Filme> {
-    return this.prisma.filme.update({
-      data,
-      where: {
-        id: filmeId,
+  async update(id: number, data: CreateFilmeDto) {
+    const generos = data.generos?.map((genero) => ({
+      id: genero,
+    }));
+    const participantes = data.participantes?.map((participante) => ({
+      id: participante,
+    }));
+    return await this.prisma.filme.update({
+      data: {
+        ...data,
+        participantes: {
+          connect: participantes,
+        },
+        generos: {
+          connect: generos,
+        },
       },
+      include: {
+        generos: true,
+        participantes: true,
+      },
+      where: { id },
     });
   }
 

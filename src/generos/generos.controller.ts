@@ -32,15 +32,15 @@ export class GenerosController {
 
   @Get('/findOne/:id')
   @UsePipes(ValidationPipe)
-  async findUnique(@Param('id', ParseIntPipe) id: number) {
+  async findUnique(@Param('id', ParseIntPipe) id: number): Promise<Genero> {
     return this.generosService.findOne(id);
   }
 
   @Put('/update/:id')
   @UsePipes(ValidationPipe)
   async update(
-    @Body() updateGenero: CreateGeneroDto,
     @Param('id', ParseIntPipe) id: number,
+    @Body() updateGenero: CreateGeneroDto,
   ): Promise<Genero> {
     return this.generosService.update(id, updateGenero);
   }
