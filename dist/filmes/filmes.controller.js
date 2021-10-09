@@ -29,7 +29,7 @@ let FilmesController = class FilmesController {
     async findUnique(id) {
         return this.filmesService.findOne(id);
     }
-    async update(updateFilme, id) {
+    async update(id, updateFilme) {
         return this.filmesService.update(id, updateFilme);
     }
     async delete(id) {
@@ -65,10 +65,10 @@ __decorate([
 __decorate([
     (0, common_1.Put)('/update/:id'),
     (0, common_1.UsePipes)(common_1.ValidationPipe),
-    __param(0, (0, common_1.Body)()),
-    __param(1, (0, common_1.Param)('id', common_1.ParseIntPipe)),
+    __param(0, (0, common_1.Param)('id', common_1.ParseIntPipe)),
+    __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [create_filme_dto_1.CreateFilmeDto, Number]),
+    __metadata("design:paramtypes", [Number, create_filme_dto_1.CreateFilmeDto]),
     __metadata("design:returntype", Promise)
 ], FilmesController.prototype, "update", null);
 __decorate([

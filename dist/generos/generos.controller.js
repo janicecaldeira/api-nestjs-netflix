@@ -29,7 +29,7 @@ let GenerosController = class GenerosController {
     async findUnique(id) {
         return this.generosService.findOne(id);
     }
-    async update(updateGenero, id) {
+    async update(id, updateGenero) {
         return this.generosService.update(id, updateGenero);
     }
     async delete(id) {
@@ -65,10 +65,10 @@ __decorate([
 __decorate([
     (0, common_1.Put)('/update/:id'),
     (0, common_1.UsePipes)(common_1.ValidationPipe),
-    __param(0, (0, common_1.Body)()),
-    __param(1, (0, common_1.Param)('id', common_1.ParseIntPipe)),
+    __param(0, (0, common_1.Param)('id', common_1.ParseIntPipe)),
+    __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [create_genero_dto_1.CreateGeneroDto, Number]),
+    __metadata("design:paramtypes", [Number, create_genero_dto_1.CreateGeneroDto]),
     __metadata("design:returntype", Promise)
 ], GenerosController.prototype, "update", null);
 __decorate([

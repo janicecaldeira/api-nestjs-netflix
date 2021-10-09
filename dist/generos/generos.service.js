@@ -17,7 +17,15 @@ let GenerosService = class GenerosService {
         this.prisma = prisma;
     }
     async create(data) {
-        return this.prisma.genero.create({ data });
+        var _a;
+        const filmes = (_a = data.filmes) === null || _a === void 0 ? void 0 : _a.map((filme) => ({
+            id: filme,
+        }));
+        return this.prisma.genero.create({
+            data: Object.assign(Object.assign({}, data), { filmes: {
+                    connect: filmes,
+                } }),
+        });
     }
     async findAll() {
         return this.prisma.genero.findMany();
@@ -27,14 +35,21 @@ let GenerosService = class GenerosService {
             where: {
                 id: generoId,
             },
+            include: {
+                filmes: true,
+            },
         });
     }
-    async update(generoId, data) {
-        return this.prisma.genero.update({
-            data,
-            where: {
-                id: generoId,
-            },
+    async update(id, data) {
+        var _a;
+        const filmes = (_a = data.filmes) === null || _a === void 0 ? void 0 : _a.map((filme) => ({
+            id: filme,
+        }));
+        return await this.prisma.genero.update({
+            data: Object.assign(Object.assign({}, data), { filmes: {
+                    connect: filmes,
+                } }),
+            where: { id },
         });
     }
     async deleteOne(where) {

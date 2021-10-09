@@ -29,7 +29,7 @@ let ParticipantesController = class ParticipantesController {
     async findUnique(id) {
         return this.participantesService.findOne(id);
     }
-    async update(updateParticipante, id) {
+    async update(id, updateParticipante) {
         return this.participantesService.update(id, updateParticipante);
     }
     async delete(id) {
@@ -65,10 +65,10 @@ __decorate([
 __decorate([
     (0, common_1.Put)('/update/:id'),
     (0, common_1.UsePipes)(common_1.ValidationPipe),
-    __param(0, (0, common_1.Body)()),
-    __param(1, (0, common_1.Param)('id', common_1.ParseIntPipe)),
+    __param(0, (0, common_1.Param)('id', common_1.ParseIntPipe)),
+    __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [create_participante_dto_1.CreateParticipanteDto, Number]),
+    __metadata("design:paramtypes", [Number, create_participante_dto_1.CreateParticipanteDto]),
     __metadata("design:returntype", Promise)
 ], ParticipantesController.prototype, "update", null);
 __decorate([

@@ -7,7 +7,7 @@ export declare class GenerosController {
     create(createGenero: CreateGeneroDto): Promise<Genero>;
     findMany(): Promise<Genero[]>;
     findUnique(id: number): Promise<Genero>;
-    update(updateGenero: CreateGeneroDto, id: number): Promise<Genero>;
+    update(id: number, updateGenero: CreateGeneroDto): Promise<Genero>;
     delete(id: string): Promise<Genero>;
     deleteMany(): Promise<import(".prisma/client").Prisma.BatchPayload>;
 }

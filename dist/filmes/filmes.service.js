@@ -17,7 +17,24 @@ let FilmesService = class FilmesService {
         this.prisma = prisma;
     }
     async create(data) {
-        return this.prisma.filme.create({ data });
+        var _a, _b;
+        const generos = (_a = data.generos) === null || _a === void 0 ? void 0 : _a.map((genero) => ({
+            id: genero,
+        }));
+        const participantes = (_b = data.participantes) === null || _b === void 0 ? void 0 : _b.map((participante) => ({
+            id: participante,
+        }));
+        return this.prisma.filme.create({
+            data: Object.assign(Object.assign({}, data), { participantes: {
+                    connect: participantes,
+                }, generos: {
+                    connect: generos,
+                } }),
+            include: {
+                generos: true,
+                participantes: true,
+            },
+        });
     }
     async findAll() {
         return this.prisma.filme.findMany();
@@ -27,14 +44,31 @@ let FilmesService = class FilmesService {
             where: {
                 id: filmeId,
             },
+            include: {
+                generos: true,
+                participantes: true,
+            },
         });
     }
-    async update(filmeId, data) {
-        return this.prisma.filme.update({
-            data,
-            where: {
-                id: filmeId,
+    async update(id, data) {
+        var _a, _b;
+        const generos = (_a = data.generos) === null || _a === void 0 ? void 0 : _a.map((genero) => ({
+            id: genero,
+        }));
+        const participantes = (_b = data.participantes) === null || _b === void 0 ? void 0 : _b.map((participante) => ({
+            id: participante,
+        }));
+        return await this.prisma.filme.update({
+            data: Object.assign(Object.assign({}, data), { participantes: {
+                    connect: participantes,
+                }, generos: {
+                    connect: generos,
+                } }),
+            include: {
+                generos: true,
+                participantes: true,
             },
+            where: { id },
         });
     }
     async deleteOne(where) {
