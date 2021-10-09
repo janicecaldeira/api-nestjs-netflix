@@ -9,7 +9,7 @@ export declare class FilmesService {
         participantes: import(".prisma/client").Participante[];
     }>;
     findAll(): Promise<Filme[]>;
-    findOne(filmeId: number): Promise<Filme>;
+    findOne(id: number): Promise<Filme>;
     update(id: number, data: CreateFilmeDto): Promise<Filme & {
         generos: import(".prisma/client").Genero[];
         participantes: import(".prisma/client").Participante[];

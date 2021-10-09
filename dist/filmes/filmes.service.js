@@ -25,10 +25,10 @@ let FilmesService = class FilmesService {
             id: participante,
         }));
         return this.prisma.filme.create({
-            data: Object.assign(Object.assign({}, data), { participantes: {
-                    connect: participantes,
-                }, generos: {
+            data: Object.assign(Object.assign({}, data), { generos: {
                     connect: generos,
+                }, participantes: {
+                    connect: participantes,
                 } }),
             include: {
                 generos: true,
@@ -39,10 +39,10 @@ let FilmesService = class FilmesService {
     async findAll() {
         return this.prisma.filme.findMany();
     }
-    async findOne(filmeId) {
+    async findOne(id) {
         return this.prisma.filme.findUnique({
             where: {
-                id: filmeId,
+                id: id,
             },
             include: {
                 generos: true,
@@ -59,10 +59,10 @@ let FilmesService = class FilmesService {
             id: participante,
         }));
         return await this.prisma.filme.update({
-            data: Object.assign(Object.assign({}, data), { participantes: {
-                    connect: participantes,
-                }, generos: {
+            data: Object.assign(Object.assign({}, data), { generos: {
                     connect: generos,
+                }, participantes: {
+                    connect: participantes,
                 } }),
             include: {
                 generos: true,
