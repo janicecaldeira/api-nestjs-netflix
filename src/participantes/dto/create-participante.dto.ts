@@ -8,7 +8,7 @@ export class CreateParticipanteDto {
   imagem: string;
 
   @IsNotEmpty()
-  data_nascimento: Date;
+  data_nascimento: string;
 
   @IsNotEmpty()
   isStaff: boolean;
@@ -17,5 +17,5 @@ export class CreateParticipanteDto {
   isAtor: boolean;
 
   @IsOptional()
-  filmeId: number;
+  filmes: number[];
 }

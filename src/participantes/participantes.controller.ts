@@ -34,15 +34,17 @@ export class ParticipantesController {
 
   @Get('/findOne/:id')
   @UsePipes(ValidationPipe)
-  async findUnique(@Param('id', ParseIntPipe) id: number) {
+  async findUnique(
+    @Param('id', ParseIntPipe) id: number,
+  ): Promise<Participante> {
     return this.participantesService.findOne(id);
   }
 
   @Put('/update/:id')
   @UsePipes(ValidationPipe)
   async update(
-    @Body() updateParticipante: CreateParticipanteDto,
     @Param('id', ParseIntPipe) id: number,
+    @Body() updateParticipante: CreateParticipanteDto,
   ): Promise<Participante> {
     return this.participantesService.update(id, updateParticipante);
   }
